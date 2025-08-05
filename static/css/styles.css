@@ -1,0 +1,225 @@
+/* Modern Color Palette */
+:root {
+    --primary: #2A9D8F;
+    --secondary: #264653;
+    --accent: #E9C46A;
+    --success: #2A9D8F;
+    --danger: #E76F51;
+    --warning: #F4A261;
+    --info: #457B9D;
+    --light: #F8F9FA;
+    --dark: #1D3557;
+    --bg-color: #F7FAFC;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition: 0.3s ease;
+    --radius: 1rem;
+}
+
+/* Base Styles */
+body {
+    background-color: var(--bg-color);
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--dark);
+    line-height: 1.6;
+}
+
+/* Grid Layout */
+.masonry-container {
+    columns: 3 280px;
+    column-gap: 1.5rem;
+    padding: 1.5rem;
+}
+
+.masonry-item {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    overflow: hidden;
+    background: white;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 1rem 1.5rem;
+}
+
+.card-header h5 {
+    margin: 0;
+    font-weight: 600;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Weather & Location Cards */
+.weather-card {
+    background: linear-gradient(135deg, var(--primary), var(--info));
+    color: white;
+}
+
+.location-card {
+    background: linear-gradient(135deg, var(--secondary), var(--dark));
+    color: white;
+}
+
+/* Form Elements */
+.form-control {
+    border-radius: calc(var(--radius) / 2);
+    border: 2px solid #E2E8F0;
+    padding: 0.75rem 1rem;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.2);
+}
+
+.input-group-text {
+    background: var(--light);
+    border: 2px solid #E2E8F0;
+    border-radius: calc(var(--radius) / 2);
+}
+
+/* Buttons */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: calc(var(--radius) / 2);
+    font-weight: 600;
+    transition: var(--transition);
+}
+
+.btn-primary {
+    background: var(--primary);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: var(--secondary);
+    transform: translateY(-2px);
+}
+
+/* Navigation */
+.navbar {
+    background: var(--secondary) !important;
+    box-shadow: var(--shadow);
+}
+
+.navbar-brand {
+    color: white !important;
+    font-weight: 700;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    padding: 0.5rem 1rem !important;
+    border-radius: var(--radius);
+    transition: var(--transition);
+}
+
+.nav-link:hover {
+    color: white !important;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Prediction Results */
+.prediction-result {
+    background: linear-gradient(135deg, var(--success), var(--primary));
+    color: white;
+    padding: 2rem;
+    border-radius: var(--radius);
+}
+
+/* Charts */
+.chart-container {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+}
+
+/* Carousel */
+.carousel-inner {
+    border-radius: var(--radius);
+}
+
+.fact-card {
+    border-left: 4px solid var(--accent);
+}
+
+/* Alerts */
+.alert {
+    border-radius: var(--radius);
+    border: none;
+    box-shadow: var(--shadow);
+}
+
+/* Footer */
+.footer {
+    background: var(--secondary);
+    color: white;
+    padding: 2rem 0;
+}
+
+.footer a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.footer a:hover {
+    color: white;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .masonry-container {
+        columns: 1;
+    }
+    
+    .card {
+        margin-bottom: 1rem;
+    }
+    
+    .btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+    }
+    
+    .prediction-result {
+        padding: 1rem;
+    }
+}
+
+/* Loading States */
+.loading {
+    position: relative;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

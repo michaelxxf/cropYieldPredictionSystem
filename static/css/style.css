@@ -1,0 +1,144 @@
+/* Modern Variables */
+:root {
+    --primary-color: #2A9D8F;
+    --secondary-color: #264653;
+    --accent-color: #E9C46A;
+    --success-color: #2A9D8F;
+    --danger-color: #E76F51;
+    --warning-color: #F4A261;
+    --info-color: #457B9D;
+    --light-color: #F8F9FA;
+    --dark-color: #1D3557;
+    --background-color: #F7FAFC;
+    --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.3s;
+    --border-radius: 1rem;
+    --spacing-unit: 1rem;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--light-color);
+}
+
+.content {
+    flex: 1;
+    padding: 2rem 0;
+}
+
+/* Navigation */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    background: linear-gradient(135deg, var(--primary-color) 0%, #0056b3 100%);
+}
+
+.navbar-brand {
+    font-weight: bold;
+}
+
+/* Cards */
+.card {
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,.1);
+    border: none;
+    margin-bottom: 1.5rem;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,.15);
+}
+
+.card-header {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #0056b3 100%);
+    color: white;
+    border-bottom: none;
+}
+
+/* Prediction Form */
+.prediction-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.form-control {
+    border-radius: 0.5rem;
+    border: 1px solid #dee2e6;
+}
+
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
+}
+
+.input-group-text {
+    background-color: var(--light-color);
+    border: 1px solid #dee2e6;
+}
+
+/* Buttons */
+.btn {
+    border-radius: 0.5rem;
+    padding: 0.5rem 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary-color) 0%, #0056b3 100%);
+    border: none;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(135deg, #0056b3 0%, #003d80 100%);
+    transform: translateY(-2px);
+}
+
+/* Weather and Location Cards */
+.weather-card {
+    background: linear-gradient(135deg, #6dd5ed, #2193b0);
+    color: white;
+}
+
+.location-card {
+    background: linear-gradient(135deg, #ee9ca7, #ffdde1);
+}
+
+/* Facts Carousel */
+.fact-card {
+    background: linear-gradient(135deg, white, var(--light-color));
+    min-height: 200px;
+}
+
+/* Charts and Graphs */
+#yieldTrendPlot, #parameterImpactPlot {
+    min-height: 400px;
+    width: 100%;
+}
+
+/* Footer */
+.footer {
+    background-color: var(--light-color);
+    padding: 1rem 0;
+    margin-top: auto;
+    border-top: 1px solid #dee2e6;
+}
+
+/* Alert Messages */
+.alert {
+    border-radius: 0.5rem;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .card {
+        margin-bottom: 1rem;
+    }
+    
+    .prediction-container {
+        padding: 0 1rem;
+    }
+}

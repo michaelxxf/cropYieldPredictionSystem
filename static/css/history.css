@@ -1,0 +1,89 @@
+/* Stats Container */
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+}
+
+.stat-item {
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 0.5rem;
+    text-align: center;
+}
+
+.stat-item h3 {
+    margin: 0.5rem 0 0;
+    color: #2193b0;
+    font-weight: 600;
+}
+
+/* Table Styles */
+.table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.table td {
+    vertical-align: middle;
+}
+
+/* Plot Containers */
+[id$="Plot"], #correlationMatrix {
+    background-color: #fff;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(0,0,0,0.05);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .card-header .d-flex {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .card-header .form-select,
+    .card-header .btn {
+        width: 100% !important;
+    }
+}
+
+/* Action Buttons */
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-buttons .btn {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+}
+
+/* Loading States */
+.loading {
+    position: relative;
+    min-height: 200px;
+}
+
+.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 2rem;
+    height: 2rem;
+    border: 3px solid #f3f3f3;
+    border-top: 3px solid #2193b0;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+} 

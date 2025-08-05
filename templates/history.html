@@ -1,0 +1,140 @@
+{% extends "base.html" %}
+
+{% block title %}Prediction History - Smart Crop{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/history.css') }}">
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-4">
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="bi bi-clock-history"></i> Prediction History</h5>
+                    <div class="d-flex gap-2">
+                        <select id="timeRange" class="form-select form-select-sm" style="width: auto;">
+                            <option value="7">Last 7 days</option>
+                            <option value="30" selected>Last 30 days</option>
+                            <option value="90">Last 90 days</option>
+                            <option value="365">Last year</option>
+                        </select>
+                        <button id="exportData" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-download"></i> Export Data
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Summary Statistics -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="bi bi-graph-up"></i> Summary Statistics</h6>
+                </div>
+                <div class="card-body">
+                    <div class="stats-container">
+                        <div class="stat-item">
+                            <h6 class="text-muted">Average Yield</h6>
+                            <h3 id="avgYield">-</h3>
+                        </div>
+                        <div class="stat-item">
+                            <h6 class="text-muted">Highest Yield</h6>
+                            <h3 id="maxYield">-</h3>
+                        </div>
+                        <div class="stat-item">
+                            <h6 class="text-muted">Lowest Yield</h6>
+                            <h3 id="minYield">-</h3>
+                        </div>
+                        <div class="stat-item">
+                            <h6 class="text-muted">Total Predictions</h6>
+                            <h3 id="totalPredictions">-</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Yield Trend -->
+        <div class="col-md-8 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="bi bi-graph-up"></i> Yield Trend</h6>
+                </div>
+                <div class="card-body">
+                    <div id="yieldTrendPlot" style="width: 100%; height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Parameter Impact -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="bi bi-bar-chart"></i> Parameter Impact</h6>
+                </div>
+                <div class="card-body">
+                    <div id="parameterImpactPlot" style="width: 100%; height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Parameter Correlations -->
+        <div class="col-md-6 mb-4">
+            <div class="card h-100">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="bi bi-diagram-3"></i> Parameter Correlations</h6>
+                </div>
+                <div class="card-body">
+                    <div id="correlationMatrix" style="width: 100%; height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Historical Data Table -->
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h6 class="mb-0"><i class="bi bi-table"></i> Historical Data</h6>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover" id="historyTable">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>N</th>
+                                    <th>P</th>
+                                    <th>K</th>
+                                    <th>Temperature</th>
+                                    <th>Humidity</th>
+                                    <th>pH</th>
+                                    <th>Rainfall</th>
+                                    <th>Predicted Yield</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Data will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/history.js') }}"></script>
+{% endblock %} 

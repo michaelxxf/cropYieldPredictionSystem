@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">    <meta http-equiv="Content-Security-Policy" content="default-src 'self' cdn.plot.ly cdn.jsdelivr.net code.jquery.com *.openweathermap.org *.openstreetmap.org; 
+        script-src 'self' 'unsafe-inline' 'unsafe-eval' cdn.plot.ly cdn.jsdelivr.net code.jquery.com;
+        style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdn.jsdelivr.net;
+        img-src 'self' data: https: cdn.plot.ly cdn.jsdelivr.net *.openweathermap.org openweathermap.org;
+        connect-src 'self' https://nominatim.openstreetmap.org https://api.openweathermap.org;"><title>{% block title %}Crop Prediction{% endblock %}</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{{ url_for('static', filename='css/modern.css') }}" rel="stylesheet">
+    {% block extra_css %}{% endblock %}
+    <!-- Plotly -->
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .content {
+            flex: 1;
+        }
+        .navbar {
+            box-shadow: 0 2px 4px rgba(0,0,0,.1);
+        }
+        .footer {
+            background-color: #f8f9fa;
+            padding: 1rem 0;
+            margin-top: auto;
+        }
+        .card {
+            transition: transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,.1);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .fact-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: none;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+            border: none;
+        }
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0056b3 0%, #003d80 100%);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center" href="{{ url_for('home') }}">
+                <i class="bi bi-flower1 me-2"></i> Smart Crop
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    {% if 'user_id' in session %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'predict' %}active{% endif %}" href="{{ url_for('predict') }}">
+                            <i class="bi bi-graph-up me-1"></i> Predict
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'history' %}active{% endif %}" href="{{ url_for('history') }}">
+                            <i class="bi bi-clock-history me-1"></i> History
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <ul class="navbar-nav ms-auto">
+                    {% if 'user_id' in session %}
+                    <li class="nav-item">
+                        <span class="nav-link">
+                            <i class="bi bi-person-circle me-1"></i> {{ session['username'] }}
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('logout') }}">
+                            <i class="bi bi-box-arrow-right me-1"></i> Logout
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'login' %}active{% endif %}" href="{{ url_for('login') }}">
+                            <i class="bi bi-box-arrow-in-right me-1"></i> Login
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.endpoint == 'signup' %}active{% endif %}" href="{{ url_for('signup') }}">
+                            <i class="bi bi-person-plus me-1"></i> Sign Up
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="content">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="container mt-3">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 Smart Crop. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-decoration-none text-dark">Privacy Policy</a>
+                    <span class="mx-2">|</span>
+                    <a href="#" class="text-decoration-none text-dark">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

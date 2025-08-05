@@ -1,0 +1,36 @@
+from flask import Flask, request, jsonify, render_template, session, flash, redirect, url_for
+from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.wrappers import Response as WerkzeugResponse
+from functools import wraps
+import numpy as np
+import pandas as pd
+import os
+import pickle
+import logging
+import mysql.connector
+from flask import session, redirect, url_for, flash
+from werkzeug.security import generate_password_hash, check_password_hash
+from typing import Dict, Any, Union, Tuple
+from flask.wrappers import Response
+import requests
+import plotly
+import json
+
+# Initialize Flask app
+app = Flask(__name__)
+app.secret_key = os.urandom(24)
+
+# Setup logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Load the ML model
+try:
+    model_path = os.path.join('dataset', 'model.pkl')
+    logger.info(f"Loading model from {model_path}")
+    with open(model_path, 'rb') as f:
+        model = pickle.load(f)
+    logger.info("Model loaded successfully")
+except Exception as e:
+    logger.error(f"Error loading model: {str(e)}")
+    model = None

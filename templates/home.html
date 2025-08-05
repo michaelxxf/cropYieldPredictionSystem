@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block title %}Smart Crop - Home{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero-section {
+        background: linear-gradient(135deg, #2193b0 0%, #6dd5ed 100%);
+        color: white;
+        padding: 4rem 0;
+        margin-bottom: 2rem;
+    }
+
+    .feature-card {
+        border: none;
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        background: white;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .feature-card:hover {
+        transform: translateY(-5px);
+    }
+
+    .feature-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #2193b0;
+    }
+
+    .cta-section {
+        background: #f8f9fa;
+        padding: 3rem 0;
+        margin-top: 2rem;
+    }
+
+    .testimonial-card {
+        background: white;
+        border-radius: 15px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .testimonial-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-bottom: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .hero-section {
+            padding: 2rem 0;
+            text-align: center;
+        }
+
+        .feature-card {
+            margin-bottom: 1rem;
+        }
+
+        .cta-section {
+            padding: 2rem 0;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">Smart Crop Prediction</h1>
+                <p class="lead mb-4">Harness the power of machine learning to optimize your crop yields and make data-driven farming decisions.</p>
+                {% if not session.get('user_id') %}
+                <div class="d-grid gap-2 d-md-flex">
+                    <a href="{{ url_for('signup') }}" class="btn btn-light btn-lg px-4 me-md-2">Get Started</a>
+                    <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg px-4">Login</a>
+                </div>
+                {% else %}
+                <a href="{{ url_for('predict') }}" class="btn btn-light btn-lg px-4">Make Prediction</a>
+                {% endif %}
+            </div>
+            <div class="col-lg-6 d-none d-lg-block">
+                <img src="{{ url_for('static', filename='images/hero-image.svg') }}" alt="Smart Farming" class="img-fluid">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="container mb-5">
+    <h2 class="text-center mb-5">Key Features</h2>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="feature-card">
+                <i class="bi bi-graph-up-arrow feature-icon"></i>
+                <h3>Smart Predictions</h3>
+                <p>Get accurate crop yield predictions using advanced machine learning algorithms.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <i class="bi bi-cloud-sun feature-icon"></i>
+                <h3>Weather Integration</h3>
+                <p>Real-time weather data integration for better decision making.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="feature-card">
+                <i class="bi bi-bar-chart feature-icon"></i>
+                <h3>Historical Analysis</h3>
+                <p>Track and analyze your prediction history for continuous improvement.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="container mb-5">
+    <h2 class="text-center mb-5">How It Works</h2>
+    <div class="row g-4">
+        <div class="col-md-3">
+            <div class="text-center">
+                <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-1-circle-fill fs-4"></i>
+                </div>
+                <h4>Input Data</h4>
+                <p>Enter your soil and environmental parameters</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="text-center">
+                <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-2-circle-fill fs-4"></i>
+                </div>
+                <h4>Analysis</h4>
+                <p>Our AI analyzes the data</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="text-center">
+                <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-3-circle-fill fs-4"></i>
+                </div>
+                <h4>Prediction</h4>
+                <p>Get accurate yield predictions</p>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="text-center">
+                <div class="rounded-circle bg-primary text-white d-inline-flex align-items-center justify-content-center mb-3" style="width: 60px; height: 60px;">
+                    <i class="bi bi-4-circle-fill fs-4"></i>
+                </div>
+                <h4>Recommendations</h4>
+                <p>Receive actionable insights</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+    <div class="container text-center">
+        <h2 class="mb-4">Ready to Optimize Your Crop Yields?</h2>
+        <p class="lead mb-4">Join thousands of farmers who are already using Smart Crop to make better decisions.</p>
+        {% if not session.get('user_id') %}
+        <a href="{{ url_for('signup') }}" class="btn btn-primary btn-lg px-5">Get Started Now</a>
+        {% else %}
+        <a href="{{ url_for('predict') }}" class="btn btn-primary btn-lg px-5">Make a Prediction</a>
+        {% endif %}
+    </div>
+</section>
+{% endblock %} 
